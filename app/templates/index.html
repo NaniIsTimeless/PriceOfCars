@@ -1,0 +1,74 @@
+<html>
+{% load staticfiles %}
+  <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  </head>
+  <body>
+   <div>symboling <input type = "text" name="canshu" required id = "symboling" value="2"></input></div>
+   <div>normalized-losses <input type = "text" name="canshu" required id = "normalized-losses" value="164"></input></div>
+   <div>make <input type = "text" name="canshu" required id = "make" value="audi"></input></div>
+   <div>fuel-type <input type = "text" name="canshu" required id = "fuel-type" value="gas"></input></div>
+      <div>aspiration <input type = "text" name="canshu" required id = "aspiration" value="std"></input></div>
+   <div>num-of-doors <input type = "text" name="canshu" required id = "num-of-doors" value="four"></input></div>
+   <div>body-style <input type = "text" name="canshu" required id = "body-style" value="sedan"></input></div>
+   <div>drive-wheels <input type = "text" name="canshu" required id = "drive-wheels" value="fwd"></input></div>
+   <div>engine-location <input type = "text" name="canshu" required id = "engine-location" value="front"></input></div>
+   <div>wheel-base <input type = "text" name="canshu" required id = "wheel-base" value="99.8"></input></div>
+   <div>length <input type = "text" name="canshu" required id = "length" value="176.6"></input></div>
+   <div>width <input type = "text" name="canshu" required id = "width" value="66.2"></input></div>
+   <div>height <input type = "text" name="canshu" required id = "height" value="54.3"></input></div>
+   <div>curb-weight <input type = "text" name="canshu" required id = "curb-weight" value="2337"></input></div>
+   <div>engine-type <input type = "text" name="canshu" required id = "engine-type" value="ohc"></input></div>
+   <div>num-of-cylinders <input type = "text" name="canshu" required id = "num-of-cylinders" value="four"></input></div>
+   <div>engine-size <input type = "text" name="canshu" required id = "engine-size" value="109"></input></div>
+   <div>fuel-system <input type = "text" name="canshu" required id = "fuel-system" value="mpfi"></input></div>
+   <div>bore <input type = "text" name="canshu" required id = "bore" value="3.19"></input></div>
+   <div>stroke <input type = "text" name="canshu" required id = "stroke" value="3.4"></input></div>
+    <div>compression-ratio <input type = "text" name="canshu" required id = "compression-ratio" value="10"></input></div>
+    <div>horsepower <input type = "text" name="canshu" required id = "horsepower" value="102"></input></div>
+    <div>peak-rpm <input type = "text" name="canshu" required id = "peak-rpm" value="5500"></input></div>
+    <div>city-mpg <input type = "text" name="canshu" required id = "city-mpg" value="24"></input></div>
+    <div>highway-mpg <input type = "text" name="canshu" required id = "highway-mpg" value="30"></input></div>
+    <div>price <input type = "text" name="canshu" required id = "price" value="0"></input></div>
+     <div>
+    Price：<p id = "result"></p>
+    </div>
+   <div >
+    <button type = "button" id="search" onclick="search()">Start</button>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">
+    function search() {
+            var data = {};
+            var flag = true;
+            $("input[name='canshu']").each(function(){
+                if ($(this).val()==""){
+                    flag = false;
+                    
+                }
+                data[$(this).attr('id')]=$(this).val();
+              });
+            if (flag == false){
+                alert('Please input something');
+                return;
+            }
+            
+
+            $.ajax({
+                    type: 'GET',
+                    url: '/search',
+                    data: data,
+                    dataType: 'json',
+                    success: function(data) {
+                        alert(data['price']);
+                       $("#result").html(data['price']);
+                        
+                    },
+                    error: function(xhr, type) {
+                        alert('Fail');
+                    }
+            });
+      }
+</script>
